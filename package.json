@@ -1,0 +1,23 @@
+{
+  "name": "bamazon-app",
+  "version": "1.0.0",
+  "description": "This application uses Node.js and mySQL to create an online store where users can submit orders and the inventory will deplete accordingly.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niviamanjee/bamazon-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niviamanjee/bamazon-app/issues"
+  },
+  "homepage": "https://github.com/niviamanjee/bamazon-app#readme",
+  "dependencies": {
+    "inquirer": "^7.0.0",
+    "mysql": "^2.17.1"
+  }
+}
