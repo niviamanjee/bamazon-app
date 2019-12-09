@@ -85,6 +85,7 @@ function managerPrompt() {
                         }
                     ]).then(function (answerInventory) {
                         console.log(answerInventory)
+                        //find out why productList array doesn't all show up as choices inquirer
                     })
                 }
 
@@ -93,6 +94,7 @@ function managerPrompt() {
                 }
             });
         });
+    //find out how to reset inquirer after the manager completes a task 
 
 
 }
