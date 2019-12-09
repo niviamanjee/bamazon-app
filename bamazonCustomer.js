@@ -32,7 +32,9 @@ function displayProducts() {
 
         console.log("==============================================");
         console.log("Products: ");
-        console.log(productList.toString())
+        for (var i = 0; i < productList.length; i++) {
+            console.log(productList[i])
+        }
         console.log("==============================================");
 
         userPrompt();
@@ -78,13 +80,14 @@ function userPrompt() {
                     var totalPrice = response["units"] * res[productID - 2].price
                     console.log(`Total Price: $${totalPrice}`)
                     // console.log(res)
+
                     var update = connection.query("UPDATE products SET ? WHERE ?",
                         [
                             {
                                 stock_quantity: newQuantity
                             },
                             {
-                                item_id: response["units"]
+                                item_id: res[productID - 2].item_id
 
                             }
 
