@@ -41,6 +41,11 @@ function managerPrompt() {
                 const productList = res.map(res => `\nItem ID: ${res.item_id}` + ` ` + `\nProduct Name: ${res.product_name}`
                     + ` ` + `\nPrice: $${res.price}` + `\nStock Quanitity: ${res.stock_quantity}`);
                 // console.log(productList)
+
+                // switch (response.menu) {
+                //     case ("")
+                // }
+
                 if (response.menu === "View Products for Sale") {
 
 
@@ -85,10 +90,11 @@ function managerPrompt() {
                             type: "checkbox",
                             name: "addingInventory",
                             message: "Which products would you like to add inventory to?",
-                            choices: productList.map(prod => prod.replace("\n", ""))
+                            choices: productList
                         }
                     ]).then(function (answerInventory) {
                         console.log(answerInventory)
+                        console.log(productList)
                         //find out why productList array doesn't all show up as choices inquirer
                     })
                 }
