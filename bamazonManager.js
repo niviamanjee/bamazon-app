@@ -40,7 +40,7 @@ function managerPrompt() {
                 console.log(`You chose to: ${response.menu}`)
                 const productList = res.map(res => `\nItem ID: ${res.item_id}` + ` ` + `\nProduct Name: ${res.product_name}`
                     + ` ` + `\nPrice: $${res.price}` + `\nStock Quanitity: ${res.stock_quantity}`);
-                console.log(productList)
+                // console.log(productList)
                 if (response.menu === "View Products for Sale") {
 
 
@@ -51,7 +51,7 @@ function managerPrompt() {
                     }
                     // console.log(productList.toString())
                     console.log("==============================================");
-
+                    managerPrompt();
                 }
                 // console.log(res)
 
@@ -65,23 +65,27 @@ function managerPrompt() {
                         if (res[i].stock_quantity < "10") {
                             // console.log(`Low Stock Quantity: \nItem ID: ${res.item_id} \nProduct Name: ${res.product_name} 
                             // \nQuantity Left: ${res.stock_quantity}`)
+                            console.log(res[i])
                             console.log(`Product(s) with low inventory: \nItem ID: ${res[i].item_id}` +
                                 `\nProduct: ${res[i].product_name}` + `\nDepartment: ${res[i].department_name}` +
                                 `\nStock Quantity: ${res[i].stock_quantity}`)
                         }
                     }
-
+                    managerPrompt();
                     // const lowInventory = res.map(res => `${res.stock_quantity < 5}`)
                     // console.log(lowInventory)
 
                 }
                 else if (response.menu === "Add to Inventory") {
+                    console.log(productList)
+                    console.table(productList.map(productList => productList.replace("\n", " ")))
+
                     inquirer.prompt([
                         {
                             type: "checkbox",
                             name: "addingInventory",
                             message: "Which products would you like to add inventory to?",
-                            choices: productList
+                            choices: productList.map(prod => prod.replace("\n", ""))
                         }
                     ]).then(function (answerInventory) {
                         console.log(answerInventory)
@@ -90,15 +94,58 @@ function managerPrompt() {
                 }
 
                 else if (response.menu === "Add New Product") {
+                    inquirer.prompt([
+                        {
+                            type: "input",
+                            name: "productName",
+                            message: "Name of the product: "
+                        },
+                        {
+                            type: "input",
+                            name: "departmentName",
+                            message: "Product Department: "
+                        },
+                        {
+                            type: "input",
+                            name: "price",
+                            message: "Price of the product: "
+                        },
+                        {
+                            type: "input",
+                            name: "stockQuantity",
+                            message: "Stock Quantity of the product: "
+                        }
+                    ]).then(function (answerNewProduct) {
+                        console.log(answerNewProduct)
+                        connection.query(
+                            "INSERT INTO products SET ?",
+                            {
+                                product_name: `${answerNewProduct.productName}`,
+                                department_name: `${answerNewProduct.departmentName}`,
+                                price: `${answerNewProduct.price}`,
+                                stock_quantity: `${answerNewProduct.stockQuantity}`
+                            },
+                            function (err, res) {
+                                if (err) throw err;
+                                console.log(res.affectedRows + " product inserted!\n");
 
-                }
+                                // Call updateProduct AFTER the INSERT completes
+                                // updateProduct();
+                            });
+
+
+
+                    })
+
+
+                };
             });
+            //find out how to reset inquirer after the manager completes a task 
+
+
         });
-    //find out how to reset inquirer after the manager completes a task 
-
-
 }
 
-// connection.end();
 
 managerPrompt()
+// connection.end();
