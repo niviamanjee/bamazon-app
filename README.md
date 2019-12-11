@@ -22,4 +22,4 @@ A manager can choose to View Products for Sale, View Low Inventory, Add to Inven
 ### View Products for Sale and View Low Inventory 
 
 When a manager's view differs from the customer's view; managers can view the department and stock quantity of the products in addition to name, ID, and price. Managers can also view low inventory, or any product with a stock quantity lower than 10 units. 
-![Cu View Demo](demoVideos/BamazonManagerDemo1.gif)
+![Manager View Demo](demoVideos/BamazonManagerDemo1.gif)

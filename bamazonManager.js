@@ -38,8 +38,11 @@ function managerPrompt() {
             connection.query("SELECT * FROM products", function (err, res) {
                 if (err) throw err;
                 console.log(`You chose to: ${response.menu}`)
-                const productList = res.map(res => `\nItem ID: ${res.item_id}` + ` ` + `\nProduct Name: ${res.product_name}`
+                const productList = res.map(res => `Item ID: ${res.item_id}` + ` ` + `Product Name: ${res.product_name}`
+                    + ` ` + `Price: $${res.price}` + `Stock Quanitity: ${res.stock_quantity}`);
+                const productDisplay = res.map(res => `\nItem ID: ${res.item_id}` + ` ` + `\nProduct Name: ${res.product_name}`
                     + ` ` + `\nPrice: $${res.price}` + `\nStock Quanitity: ${res.stock_quantity}`);
+
                 // console.log(productList)
 
                 // switch (response.menu) {
@@ -51,7 +54,8 @@ function managerPrompt() {
 
                     console.log("==============================================");
                     console.log("Products: ");
-                    for (var i = 0; i < productList.length; i++) {
+
+                    for (var i = 0; i < productDisplay.length; i++) {
                         console.log(productList[i])
                     }
                     // console.log(productList.toString())
@@ -82,8 +86,9 @@ function managerPrompt() {
 
                 }
                 else if (response.menu === "Add to Inventory") {
-                    console.log(productList)
-                    console.table(productList.map(productList => productList.replace("\n", " ")))
+                    // console.log(productList)
+
+                    // console.table(productList.map(productList => productList.replace("\n", " ")))
 
                     inquirer.prompt([
                         {
@@ -94,7 +99,8 @@ function managerPrompt() {
                         }
                     ]).then(function (answerInventory) {
                         console.log(answerInventory)
-                        console.log(productList)
+
+                        // console.log(productList)
                         //find out why productList array doesn't all show up as choices inquirer
                     })
                 }
