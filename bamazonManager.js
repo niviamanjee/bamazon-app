@@ -37,11 +37,12 @@ function managerPrompt() {
         ]).then(function (response) {
             connection.query("SELECT * FROM products", function (err, res) {
                 if (err) throw err;
+                console.log(res)
                 console.log(`You chose to: ${response.menu}`)
                 const productList = res.map(res => `Item ID: ${res.item_id}` + ` ` + `Product Name: ${res.product_name}`
                     + ` ` + `Price: $${res.price}` + `Stock Quanitity: ${res.stock_quantity}`);
                 const productDisplay = res.map(res => `\nItem ID: ${res.item_id}` + ` ` + `\nProduct Name: ${res.product_name}`
-                    + ` ` + `\nPrice: $${res.price}` + `\nStock Quanitity: ${res.stock_quantity}`);
+                    + ` ` + `\nPrice: $${res.price}` + `\nStock Quantity: ${res.stock_quantity}`);
 
                 // console.log(productList)
 
@@ -92,17 +93,43 @@ function managerPrompt() {
 
                     inquirer.prompt([
                         {
-                            type: "checkbox",
+                            type: "list",
                             name: "addingInventory",
-                            message: "Which products would you like to add inventory to?",
+                            message: "Which product would you like to add inventory to?",
                             choices: productList
                         }
                     ]).then(function (answerInventory) {
-                        console.log(answerInventory)
+                        console.log(answerInventory.addingInventory.toString().charAt(9))
+                        console.log(res[answerInventory.addingInventory.toString().charAt(9) - 1].stock_quantity)
+
+                        inquirer.prompt([
+                            {
+                                type: "input",
+                                name: "quantity",
+                                message: "Enter the number of units you would like to add: "
+                            }
+                        ]).then(function (responseQuantity) {
+                            console.log(responseQuantity.quantity)
+                            // var newStockQuantity = responseQuantity.quantity + answerInventory.addingInventory.toString().charAt()
+                            connection.query("UPDATE products SET ? WHERE ?",
+                                [
+                                    {
+                                        stock_quantity: (parseInt(responseQuantity.quantity) + parseInt(res[answerInventory.addingInventory.toString().charAt(9) - 1].stock_quantity))
+                                    },
+                                    {
+                                        item_id: answerInventory.addingInventory.toString().charAt(9)
+
+                                    }
+
+                                ]
+                            )
+                            console.log(`Updated Stock Quantity: ${(parseInt(responseQuantity.quantity) + parseInt(res[answerInventory.addingInventory.toString().charAt(9) - 1].stock_quantity))}`)
+                        })
 
                         // console.log(productList)
                         //find out why productList array doesn't all show up as choices inquirer
                     })
+
                 }
 
                 else if (response.menu === "Add New Product") {
