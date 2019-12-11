@@ -70,7 +70,7 @@ function managerPrompt() {
                         if (res[i].stock_quantity < "10") {
                             // console.log(`Low Stock Quantity: \nItem ID: ${res.item_id} \nProduct Name: ${res.product_name} 
                             // \nQuantity Left: ${res.stock_quantity}`)
-                            console.log(res[i])
+                            // console.log(res[i])
                             console.log(`Product(s) with low inventory: \nItem ID: ${res[i].item_id}` +
                                 `\nProduct: ${res[i].product_name}` + `\nDepartment: ${res[i].department_name}` +
                                 `\nStock Quantity: ${res[i].stock_quantity}`)

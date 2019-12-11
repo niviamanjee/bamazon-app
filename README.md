@@ -10,3 +10,4 @@ This application demonstrates the interaction between Node.js and MySQL to creat
 
 ## Customer View Demo 
 
+![Customer View Demo](demoVideos/BamazonCustomerDemo.gif)
