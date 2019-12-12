@@ -37,7 +37,7 @@ function managerPrompt() {
         ]).then(function (response) {
             connection.query("SELECT * FROM products", function (err, res) {
                 if (err) throw err;
-                console.log(res)
+
                 console.log(`You chose to: ${response.menu}`)
                 const productList = res.map(res => `Item ID: ${res.item_id}` + ` ` + `Product Name: ${res.product_name}`
                     + ` ` + `Price: $${res.price}` + `Stock Quanitity: ${res.stock_quantity}`);
@@ -128,8 +128,8 @@ function managerPrompt() {
 
                         // console.log(productList)
                         //find out why productList array doesn't all show up as choices inquirer
-                    })
 
+                    })
                 }
 
                 else if (response.menu === "Add New Product") {
